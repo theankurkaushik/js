@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup to the Website</title>
+    <link rel="stylesheet" href="css/bootstrap5.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="heading">Signup to the Website</div>
+<div class="container form">
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="name">Name</label>
+        <div class="col-md-4">
+            <input id="name" name="name" type="text" placeholder="Enter your name" class="form-control input-md">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="username">Username</label>
+        <div class="col-md-4">
+            <input id="username" name="username" type="text" placeholder="Enter your desired username" class="form-control input-md">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="phone">Phone No.</label>
+        <div class="col-md-4">
+            <input id="phone" name="phone" type="text" placeholder="Enter your phone no." class="form-control input-md">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="password">Password</label>
+        <div class="col-md-4">
+            <input id="password" name="password" type="password" placeholder="Enter your password" class="form-control input-md">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="image">Choose your profile image</label>
+        <div class="col-md-4">
+            <input id="image" name="image" class="input-file" type="file">
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-4">
+            <button id="signup" name="signup" class="btn btn-grad2" onclick="signup()" >Signup</button>
+        </div>
+    </div>
+    <div><a href="login.html">Already registered?</a></div>
+</div>
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDqf9tSNvKJ1S42RAhSpM-UQcxABSJM6bk",
+        authDomain: "fir-1fada.firebaseapp.com",
+        databaseURL: "https://fir-1fada-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "fir-1fada",
+        storageBucket: "fir-1fada.appspot.com",
+        messagingSenderId: "701556954922",
+        appId: "1:701556954922:web:429121583dbf929bc6b053"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script>
+   function signup(){
+        {
+          let getName=document.getElementById("name").value;
+          let getUsername=document.getElementById("username").value;
+          let getPhone = document.getElementById("phone").value;
+          let getPassword=document.getElementById("password").value;
+                    // Javascript Validation
+                    if(getName==""||getUsername==""||getPassword==""||getPhone=="")
+                    {
+                        alert("Please enter the values");
+                            return;
+           }
+
+           firebase.database().ref('/user/'+ getUsername).set
+           ({
+               Name:getName,
+               Username:getUsername,
+               Phone:getPhone,
+               Password:getPassword
+           }) ;
+
+           alert("Registered successfully");
+           clearData();
+       }
+       function clearData(){
+           document.getElementById("name").value= "";
+           document.getElementById("username").value= "";
+           document.getElementById("phone").value= "";
+           document.getElementById("password").value= "";
+       }
+   }
+</script>
+
+</body>
+</html>

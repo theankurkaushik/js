@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/bootstrap5.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="heading">Login to the Website</div>
+
+<div class="container form">
+<div class="form-group">
+    <label class="col-md-4 control-label" for="username">Username</label>
+    <div class="col-md-4">
+        <input id="username" name="username" type="text" placeholder="Enter Username" class="form-control input-md">
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-4 control-label" for="password">Password</label>
+    <div class="col-md-4">
+        <input id="password" name="password" type="password" placeholder="Enter Password" class="form-control input-md" required="">
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-4 control-label" >Login As</label>
+    <div class="col-md-4">
+        <label class="radio-inline" for="user">
+            <input type="radio" name="login-as" id="user" value="user" checked="checked">
+            User
+        </label>
+        <label class="radio-inline" for="admin">
+            <input type="radio" name="login-as" id="admin" value="admin">
+            Admin
+        </label>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-md-4 control-label" for="login-btn"></label>
+    <div class="col-md-4">
+        <button id="login-btn" name="login" class="btn btn-grad" onclick=login()>Login</button>
+    </div>
+</div>
+
+<div><a href="signup.html">Create new account?</a></div>
+</div>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Script~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDqf9tSNvKJ1S42RAhSpM-UQcxABSJM6bk",
+        authDomain: "fir-1fada.firebaseapp.com",
+        databaseURL: "https://fir-1fada-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "fir-1fada",
+        storageBucket: "fir-1fada.appspot.com",
+        messagingSenderId: "701556954922",
+        appId: "1:701556954922:web:429121583dbf929bc6b053"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script>
+
+    function login(){
+        let getUsername=document.getElementById('username').value;
+        let getPassword=document.getElementById('password').value;
+        let user1=document.getElementById('user');
+        let admin1=document.getElementById('admin')
+        if(getUsername == ""  || getPassword == ""){
+            alert("Enter values");
+            return;
+        }
+        if(user1.checked){
+            firebase.database().ref('user').once('value',
+                function(AllRecords) {
+                    AllRecords.forEach(function(currentRecord) {
+                        let dbuser = currentRecord.val().UserName;
+                        let dbpass = currentRecord.val().Password;
+                        if(getUsername == dbuser && getPassword == dbpass)
+                        {
+                            window.location.href = "user.html";
+                        }
+                    });
+                });
+
+        }
+        else if(admin1.checked){
+            firebase.database().ref('admin').once('value',
+                function(AllRecords) {
+                    AllRecords.forEach(function(currentRecord) {
+                        let dbuser = currentRecord.val().UserName;
+                        let dbpass = currentRecord.val().Password;
+                        if(getUsername == dbuser && getPassword == dbpass)
+                        {
+                            window.location.href = "admin.html";
+                        }
+                    });
+                });
+
+        }
+    }
+
+
+</script>
+</body>
+</html>
