@@ -1,6 +1,6 @@
 var d= new Date();
 
-let date= d.getDate()+"-"+d.getMonth+1+"-"+d.getFullYear();
+let date= d.getDate()+"-"+d.getMonth()+1+"-"+d.getFullYear();
 document.getElementById("your tag id").innerHTML= date;
 firebase.database().ref('/user/'+ username).set({
 //User table, Username Key
